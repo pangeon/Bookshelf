@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ name }}</title>
+</head>
+<body>
+    <div class="content container">
+        <div class="row">
+            <div class="col-md-12">
+                <a href="/">Main</a>
+                <a href="/books">Book list</a>
+                <a href="/books/add">Add book</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
