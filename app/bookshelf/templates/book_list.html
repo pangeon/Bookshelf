@@ -4,7 +4,8 @@
     <h1>Book list:</h1>
     <ul>
         {% for book in books %}
-            <li>{{ book }}</li>
+            <li>
+                <p>{{ book }}</p><a href="{% url 'book_for_id' book.id %}">SHOW</a></li>
         {% endfor %}
     </ul>
 {% endblock %}

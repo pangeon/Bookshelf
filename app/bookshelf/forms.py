@@ -1,11 +1,10 @@
-
 from django import forms
 
 from .models import Books
 
 
+# ! Method must be name clean_ (...)
 class BooksForm(forms.ModelForm):
-
     title = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Enter book title'}))
     author = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Enter book author'}))
 
@@ -15,21 +14,18 @@ class BooksForm(forms.ModelForm):
 
     def clean_title(self):
         title = self.cleaned_data.get('title')
-        unacceptable_characters = \
-            ["@", "#", "$", "^", "&", "*", "(", ")", "[", "]", "<", ">", "/"]
-        for letter in unacceptable_characters:
-            if str(title).find(letter) is not -1:
-                raise forms.ValidationError("Unacceptable characters in data form.")
-
+        BooksForm.has_unacceptable_characters(title)
         return title
 
-    def check_author(self):
+    def clean_author(self):
         author = self.cleaned_data.get('author')
+        BooksForm.has_unacceptable_characters(author)
+        return author
+
+    @staticmethod
+    def has_unacceptable_characters(field):
         unacceptable_characters = \
             ["@", "#", "$", "^", "&", "*", "(", ")", "[", "]", "<", ">", "/"]
         for letter in unacceptable_characters:
-            if str(author).find(letter) is not -1:
+            if str(field).find(letter) is not -1:
                 raise forms.ValidationError("Unacceptable characters in data form.")
-
-        return author
-

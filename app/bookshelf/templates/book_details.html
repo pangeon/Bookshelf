@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Book details:</h1>
+<h2>{{ book.title }}</h2>
+<h2>{{ book.author }}</h2>
+
+<h1>Bibliography</h1>
+<ul>
+  {% for property in bibliography %}
+  <li>
+    {{ property.language }},
+    {{ property.publishing_house }},
+    {{ property.publication_place }},
+    {{ property.publication_year }}
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

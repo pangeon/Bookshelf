@@ -8,9 +8,9 @@
     <div class="content container">
         <div class="row">
             <div class="col-md-12">
-                <a href="/">Main</a>
-                <a href="/books">Book list</a>
-                <a href="/books/add">Add book</a>
+                <a href="{% url 'main' %}">Home</a>
+                <a href="{% url 'books_list' %}">Catalog</a>
+                <a href="{% url 'add_book' %}">Add book</a>
             </div>
         </div>
         <div class="row">
