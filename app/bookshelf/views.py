@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.http import Http404
+from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import BooksForm
 from .models import Books, Bibliographies, BooksGenres
@@ -21,23 +22,22 @@ def add_books(request):
 
 
 def show_book_for_id(request, book_id):
-    book = Books.objects.get(id=book_id)
-    bibliography = None
-    book_genre = None
-    error = None
-
     try:
-        bibliography = Bibliographies.objects.get(bibliography_fk=book)
-        book_genre = BooksGenres.objects.get(book_genre_fk=book)
-    except Exception as e:
-        error = f"SYSTEM: {e} " \
-                f"DESCRIPTION: The book does not contain reference to bibliography or genre data."
+        book = get_object_or_404(Books, id=book_id)
+        bibliography = get_object_or_404(Bibliographies, bibliography_fk=book)
+        book_genre = get_object_or_404(BooksGenres, book_genre_fk=book)
 
-    context = {
-        'book': book,
-        'bibliography': bibliography,
-        'book_genre': book_genre,
-        'error': error
-    }
+        context = {
+            'book': book,
+            'bibliography': bibliography,
+            'book_genre': book_genre,
+        }
+        return render(request, 'book_details.html', context)
+    except Http404 as e:
+        context = {
+            'info': "Probably the resource you are looking for does not exist",
+            'exception': e
+        }
+        return render(request, "404.html", context)
 
-    return render(request, 'book_details.html', context)
+
