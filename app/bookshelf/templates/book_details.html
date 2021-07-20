@@ -1,19 +1,33 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Book details:</h1>
-<h2>{{ book.title }}</h2>
-<h2>{{ book.author }}</h2>
+  <h1>{{ book.title }} | {{ book.author }}</h1>
 
-<h1>Bibliography</h1>
-<ul>
-  {% for property in bibliography %}
-  <li>
-    {{ property.language }},
-    {{ property.publishing_house }},
-    {{ property.publication_place }},
-    {{ property.publication_year }}
-  </li>
-  {% endfor %}
-</ul>
+  {% if error %}
+    {{ error }}
+  {% else %}
+  <h2>Book Genre</h2>
+  <ul>
+    <li><strong>Name:</strong> {{ book_genre.name }}</li>
+    <li><strong>Symbol:</strong> {{ book_genre.symbol }}</li>
+    <li><strong>Description:</strong> <p>{{ book_genre.description }}</p></li>
+  </ul>
+
+
+  <h2>Bibliography</h2>
+  <ul>
+    <li><strong>Language:</strong> {{ bibliography.language }}</li>
+    <li><strong>Publishing House:</strong> {{ bibliography.publishing_house }}</li>
+    <li><strong>Publication Place:</strong> {{ bibliography.publication_place }}</li>
+    <li><strong>Publication Year:</strong> {{ bibliography.publication_year }}</li>
+    <li><strong>Original title:</strong> {{ bibliography.original_title }}</li>
+    <li><strong>Origin Publishing House:</strong> {{ bibliography.origin_publishing_house }}</li>
+    <li><strong>Origin Publication Place:</strong> {{ bibliography.origin_publication_place }}</li>
+    <li><strong>Translators:</strong> {{ bibliography.translators }}</li>
+    <li><strong>Additional creators:</strong> {{ bibliography.additional_creators }}</li>
+    <li><strong>Number of pages:</strong> {{ bibliography.number_of_pages }}</li>
+    <li><strong>Release:</strong> {{ bibliography.release }}</li>
+    <li><strong>ISBN:</strong> {{ bibliography.ISBN }}</li>
+  </ul>
+  {% endif %}
 {% endblock %}

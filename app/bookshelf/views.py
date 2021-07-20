@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
 from .forms import BooksForm
-from .models import Books, Bibliographies
+from .models import Books, Bibliographies, BooksGenres
 
 
 def show_books(request):
@@ -22,11 +22,22 @@ def add_books(request):
 
 def show_book_for_id(request, book_id):
     book = Books.objects.get(id=book_id)
-    bibliography = Bibliographies.objects.get(book=book)
+    bibliography = None
+    book_genre = None
+    error = None
+
+    try:
+        bibliography = Bibliographies.objects.get(bibliography_fk=book)
+        book_genre = BooksGenres.objects.get(book_genre_fk=book)
+    except Exception as e:
+        error = f"SYSTEM: {e} " \
+                f"DESCRIPTION: The book does not contain reference to bibliography or genre data."
 
     context = {
         'book': book,
-        'bibliography': bibliography
+        'bibliography': bibliography,
+        'book_genre': book_genre,
+        'error': error
     }
 
     return render(request, 'book_details.html', context)
