@@ -21,5 +21,7 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name="main"),
-    path('books', include('bookshelf.routes'), name="books_list")
+    path('books', include('bookshelf.routes'), name="books_list"),
+    path('login', views.auth, name="login"),
+    path('logout', views.session_invalidate, name="logout")
 ]

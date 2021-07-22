@@ -11,6 +11,13 @@ def show_books(request):
 
 
 def add_books(request):
+    if not request.user.is_authenticated:
+        context = {
+            'info': "Probably you do not have access to resources, please register and login.",
+            'exception': ''
+        }
+        return render(request, "401.html", context)
+
     form = BooksForm(request.POST or None)
     if form.is_valid():
         form.save()
