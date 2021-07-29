@@ -1,4 +1,4 @@
-# GO-Django
+# Bookshelf
 First Django project
 
 # Requirements
