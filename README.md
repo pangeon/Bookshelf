@@ -1,5 +1,5 @@
 # Bookshelf
-First Django project
+Your book manager for your home library.
 
 # Requirements
 - **Python > 2.x with pip** 
