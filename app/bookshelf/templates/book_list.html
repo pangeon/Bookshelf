@@ -5,7 +5,11 @@
     <ul>
         {% for book in books %}
             <li>
-                <p>{{ book }}</p><a href="{% url 'book_for_id' book.id %}">SHOW</a></li>
+                <p>{{ book }}</p>
+                <ul>
+                    <li><a href="{% url 'book_for_id' book.id %}">SHOW</a></li>
+                </ul>
+            </li>
         {% endfor %}
     </ul>
 {% endblock %}

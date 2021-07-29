@@ -1,7 +1,8 @@
+import objects as objects
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .forms import BooksForm
+from .forms import BooksForm, BibliographyForm, BooksGenresForm
 from .models import Books, Bibliographies, BooksGenres
 
 
@@ -48,3 +49,26 @@ def show_book_for_id(request, book_id):
         return render(request, "404.html", context)
 
 
+def add_bibliography(request):
+    form = BibliographyForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect("books_list")
+    context = {
+        'form': form
+    }
+    return render(request, "add_bibliography_form.html", context)
+
+
+def add_book_genre(request):
+    form = BooksGenresForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect("books_list")
+
+    book_genres = BooksGenres.objects.all()
+    context = {
+        'form': form,
+        'book_genres': book_genres
+    }
+    return render(request, "add_book_genre_form.html", context)
